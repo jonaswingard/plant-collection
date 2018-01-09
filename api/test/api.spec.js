@@ -21,7 +21,7 @@ describe('API Tests', () => {
       });
   });
 
-  it.only('Should be able to get a plant', done => {
+  it('Should be able to get a plant', done => {
     chai
       .request(app)
       .get('/api/plants/5a525f939c9ffe4fb69ccdc8')
@@ -29,7 +29,6 @@ describe('API Tests', () => {
         name: plantName
       })
       .end((err, res) => {
-        console.log(res.body);
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('name');
         done();

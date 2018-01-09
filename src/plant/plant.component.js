@@ -31,10 +31,4 @@ router.delete('/:id', (req, res) => {
   });
 });
 
-// router.post('/add', (req, res) => {
-//     userService.add(req.body.username, req.body.name).then((response) => {
-//       res.json(response);
-//     });
-//   });
-
 module.exports = router;

@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import * as fromPlants from '../store/reducers';
 import * as collection from '../store/actions/collection';
+import { Plant } from '../models/plant';
 
 @Component({
   selector: 'pc-collection-page',
@@ -10,15 +11,11 @@ import * as collection from '../store/actions/collection';
   template: `
     <h1>CollectionPage</h1>
     <h2>Plants</h2>
-    <ul>
-      <li *ngFor="let plant of (plants$ | async)">
-        {{ plant.name }}
-      </li>
-    </ul>
+    <pc-plant-list [plants]="plants$ | async"></pc-plant-list>
   `
 })
 export class CollectionPageComponent {
-  plants$: Observable<any[]>;
+  plants$: Observable<Plant[]>;
 
   constructor(private store: Store<fromPlants.PlantsState>) {
     this.plants$ = store.select(fromPlants.getPlantCollection);

@@ -2,12 +2,13 @@ import { createSelector } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 import * as plant from '../actions/plant';
 import * as collection from '../actions/collection';
+import { Plant } from '../../models/plant';
 
-export interface State extends EntityState<any> {
+export interface State extends EntityState<Plant> {
   selectedPlantId: string | null;
 }
 
-export const adapter: EntityAdapter<any> = createEntityAdapter<any>({
+export const adapter: EntityAdapter<Plant> = createEntityAdapter<Plant>({
   selectId: plant => plant._id,
   sortComparer: false
 });

@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { Plant } from '../../models/plant';
 
 export const LOAD = '[Collection] Load';
 export const LOAD_SUCCESS = '[Collection] Load Success';
@@ -13,12 +14,12 @@ export class Load implements Action {
 
 export class LoadSuccess implements Action {
   readonly type = LOAD_SUCCESS;
-  constructor(public payload: any[]) {}
+  constructor(public payload: Plant[]) {}
 }
 
 export class LoadFail implements Action {
   readonly type = LOAD_FAIL;
-  constructor(public payload: any) {}
+  constructor(public payload: Plant) {}
 }
 
 export type Actions = Load | LoadSuccess | LoadFail;

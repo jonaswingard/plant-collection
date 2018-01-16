@@ -8,10 +8,6 @@ export interface PlantsState {
   collection: fromCollection.State;
 }
 
-// export interface State extends fromRoot.State {
-//   plants: PlantsState;
-// }
-
 export const reducers = {
   plants: fromPlants.reducer,
   collection: fromCollection.reducer

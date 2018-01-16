@@ -12,6 +12,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers, metaReducers } from './store/reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   imports: [
@@ -21,7 +22,7 @@ import { reducers, metaReducers } from './store/reducers';
     RouterModule.forRoot(routes),
     StoreModule.forRoot(reducers, { metaReducers }),
     // StoreRouterConnectingModule,
-    // !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
     CoreModule.forRoot()
   ],

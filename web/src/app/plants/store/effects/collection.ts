@@ -13,6 +13,7 @@ import { of } from 'rxjs/observable/of';
 
 import * as collection from '../actions/collection';
 import { PlantsService } from '../../services/plants.service';
+import { Plant } from '../../models/plant';
 
 @Injectable()
 export class CollectionEffects {
@@ -27,7 +28,7 @@ export class CollectionEffects {
     .switchMap(() =>
       this.plantsService
         .getPlants()
-        .map((plants: any[]) => new collection.LoadSuccess(plants))
+        .map((plants: Plant[]) => new collection.LoadSuccess(plants))
         .catch(error => of(new collection.LoadFail(error)))
     );
 }

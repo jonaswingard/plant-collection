@@ -1,9 +1,9 @@
-import 'rxjs/add/operator/map';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import { environment } from '../../../environments/environment';
-import { Plant } from '../models/plant';
+import "rxjs/add/operator/map";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs/Observable";
+import { environment } from "../../../environments/environment";
+import { Plant } from "../models/plant";
 
 @Injectable()
 export class PlantsService {
@@ -15,5 +15,17 @@ export class PlantsService {
 
   getPlant(id: string): Observable<Plant> {
     return this.http.get<Plant>(`${environment.plantsUrl}/${id}`);
+  }
+
+  addPlant(plant: Plant): Observable<any> {
+    return this.http.post<any>(`${environment.plantsUrl}`, plant);
+  }
+
+  updatePlant(plant: Plant): Observable<any> {
+    return this.http.put<any>(`${environment.plantsUrl}/${plant._id}`, plant);
+  }
+
+  deletePlant(id: string): Observable<any> {
+    return this.http.delete<any>(`${environment.plantsUrl}/${id}`);
   }
 }

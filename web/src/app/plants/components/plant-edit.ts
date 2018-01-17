@@ -4,27 +4,27 @@ import {
   Output,
   EventEmitter,
   OnChanges
-} from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import * as fromPlants from '../store/reducers';
-import * as collection from '../store/actions/collection';
-import { Plant } from '../models/plant';
+} from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs/Observable";
+import * as fromPlants from "../store/reducers";
+import * as collection from "../store/actions/collection";
+import { Plant } from "../models/plant";
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   FormArray,
   Validators
-} from '@angular/forms';
+} from "@angular/forms";
 
 @Component({
-  selector: 'pc-plant-edit',
+  selector: "pc-plant-edit",
   template: `
   <pre>
 {{ plant | json }}
   </pre>
-    <form [formGroup]="form" (ngSubmit)="onSubmit(form)">
+    <form [formGroup]="form" (ngSubmit)="submit(form)">
       <label>
         Name
         <input placeholder="Name" formControlName="name">
@@ -46,8 +46,11 @@ import {
         <input placeholder="Sort" formControlName="sort">
       </label>
 
-      <button type="submit" [disabled]="form.invalid">
+      <button [disabled]="form.invalid">
         Submit
+      </button>
+      <button type="button" [disabled]="plant._id" (click)="delete(plant._id)">
+        Delete
       </button>
     </form>
 
@@ -66,22 +69,27 @@ import {
 })
 export class PlantEditComponent implements OnChanges {
   @Input() plant: Plant;
-  @Output() onUpdate = new EventEmitter<Plant>();
+  @Output() onSubmit = new EventEmitter<Plant>();
+  @Output() onDelete = new EventEmitter<string>();
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      _id: '',
-      name: ['', Validators.required],
-      water: '',
-      fertilize: '',
-      placement: '',
-      sort: ''
+      _id: "",
+      name: ["", Validators.required],
+      water: "",
+      fertilize: "",
+      placement: "",
+      sort: ""
     });
   }
 
-  onSubmit({ value, valid }) {
-    this.onUpdate.emit(value);
+  submit({ value, valid }) {
+    this.onSubmit.emit(value);
+  }
+
+  delete(id: string) {
+    this.onDelete.emit(id);
   }
 
   ngOnChanges(changes) {

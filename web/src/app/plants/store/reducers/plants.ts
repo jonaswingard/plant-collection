@@ -1,8 +1,8 @@
-import { createSelector } from '@ngrx/store';
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import * as plant from '../actions/plant';
-import * as collection from '../actions/collection';
-import { Plant } from '../../models/plant';
+import { createSelector } from "@ngrx/store";
+import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
+import * as plant from "../actions/plant";
+import * as collection from "../actions/collection";
+import { Plant } from "../../models/plant";
 
 export interface State extends EntityState<Plant> {
   selectedPlantId: string | null;
@@ -40,6 +40,30 @@ export function reducer(
       return {
         ...state,
         selectedPlantId: action.payload
+      };
+    }
+
+    case plant.ADD: {
+      return {
+        ...adapter.addOne(action.payload, state)
+      };
+    }
+
+    case plant.UPDATE: {
+      return {
+        ...adapter.updateOne(
+          {
+            id: action.payload._id,
+            changes: action.payload
+          },
+          state
+        )
+      };
+    }
+
+    case plant.DELETE: {
+      return {
+        ...adapter.removeOne(action.payload, state)
       };
     }
 

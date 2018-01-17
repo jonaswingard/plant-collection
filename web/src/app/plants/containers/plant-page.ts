@@ -1,20 +1,20 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import * as fromPlants from '../store/reducers';
-import * as collection from '../store/actions/collection';
-import * as plant from '../store/actions/plant';
-import { ActivatedRoute } from '@angular/router';
-import 'rxjs/add/operator/filter';
-import { Subscription } from 'rxjs/Subscription';
-import { Plant } from '../models/plant';
+import { Component, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs/Observable";
+import * as fromPlants from "../store/reducers";
+import * as collection from "../store/actions/collection";
+import * as plant from "../store/actions/plant";
+import { ActivatedRoute } from "@angular/router";
+import "rxjs/add/operator/filter";
+import { Subscription } from "rxjs/Subscription";
+import { Plant } from "../models/plant";
 
 @Component({
-  selector: 'pc-collection-page',
+  selector: "pc-collection-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1>Plant Page</h1>
-    <pc-plant-edit [plant]="plant$ | async" (onUpdate)="update($event)"></pc-plant-edit>
+    <pc-plant-edit [plant]="plant$ | async" (onSubmit)="upsert($event)" (onDelete)="delete($event"></pc-plant-edit>
   `
 })
 export class PlantPageComponent implements OnDestroy {
@@ -37,7 +37,13 @@ export class PlantPageComponent implements OnDestroy {
     this.actionsSubscription.unsubscribe();
   }
 
-  update(plant: Plant) {
-    console.log(plant);
+  upsert(plantItem: Plant) {
+    this.store.dispatch(
+      plantItem._id ? new plant.Update(plantItem) : new plant.Add(plantItem)
+    );
+  }
+
+  delete(id: string) {
+    this.store.dispatch(new plant.Delete(id));
   }
 }

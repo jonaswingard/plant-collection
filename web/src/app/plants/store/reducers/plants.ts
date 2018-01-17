@@ -1,8 +1,8 @@
-import { createSelector } from "@ngrx/store";
-import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
-import * as plant from "../actions/plant";
-import * as collection from "../actions/collection";
-import { Plant } from "../../models/plant";
+import { createSelector } from '@ngrx/store';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import * as plant from '../actions/plant';
+import * as collection from '../actions/collection';
+import { Plant } from '../../models/plant';
 
 export interface State extends EntityState<Plant> {
   selectedPlantId: string | null;

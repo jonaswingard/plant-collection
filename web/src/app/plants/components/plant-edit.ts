@@ -4,22 +4,22 @@ import {
   Output,
   EventEmitter,
   OnChanges
-} from "@angular/core";
-import { Store } from "@ngrx/store";
-import { Observable } from "rxjs/Observable";
-import * as fromPlants from "../store/reducers";
-import * as collection from "../store/actions/collection";
-import { Plant } from "../models/plant";
+} from '@angular/core';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
+import * as fromPlants from '../store/reducers';
+import * as collection from '../store/actions/collection';
+import { Plant } from '../models/plant';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
   FormArray,
   Validators
-} from "@angular/forms";
+} from '@angular/forms';
 
 @Component({
-  selector: "pc-plant-edit",
+  selector: 'pc-plant-edit',
   template: `
   <pre>
 {{ plant | json }}
@@ -60,6 +60,9 @@ import {
     label {
       display: block;
     }
+    input {
+      width: 250px;
+    }
     textarea {
       width: 250px;
       height: 50px;
@@ -75,12 +78,12 @@ export class PlantEditComponent implements OnChanges {
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      _id: "",
-      name: ["", Validators.required],
-      water: "",
-      fertilize: "",
-      placement: "",
-      sort: ""
+      _id: '',
+      name: ['', Validators.required],
+      water: '',
+      fertilize: '',
+      placement: '',
+      sort: ''
     });
   }
 

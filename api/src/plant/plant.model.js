@@ -16,10 +16,10 @@ plantSchema.pre('save', next => {
   next();
 });
 
-plantSchema.pre('findOneAndUpdate', next => {
-  console.log('updating... setting updated at');
-  this.updated_at = new Date();
-  next();
-});
+// plantSchema.pre('findOneAndUpdate', next => {
+//   console.log('updating... setting updated at');
+//   this.updated_at = new Date();
+//   next();
+// });
 
 export default mongoose.model('plants', plantSchema);

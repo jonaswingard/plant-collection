@@ -21,7 +21,7 @@ describe('API Tests', () => {
       });
   });
 
-  it('Should be able to get a plant', done => {
+  it.only('Should be able to get a plant', done => {
     chai
       .request(app)
       .get('/api/plants/5a525f939c9ffe4fb69ccdc8')
@@ -31,6 +31,7 @@ describe('API Tests', () => {
       .end((err, res) => {
         expect(res).to.have.status(200);
         expect(res.body).to.have.property('name');
+        console.log(res.body.name);
         done();
       });
   });
@@ -48,12 +49,12 @@ describe('API Tests', () => {
       });
   });
 
-  it('Should be able to update a plant', done => {
+  it.only('Should be able to update a plant', done => {
     chai
       .request(app)
       .put('/api/plants/5a525f939c9ffe4fb69ccdc8')
       .send({
-        name: 'plant added by test - updated 5'
+        name: 'plant added by test - updated 6'
       })
       .end((err, res) => {
         expect(res).to.have.status(200);

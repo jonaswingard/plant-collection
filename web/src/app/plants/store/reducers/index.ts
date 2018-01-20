@@ -2,6 +2,7 @@ import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromPlants from './plants';
 import * as fromCollection from './collection';
 import * as fromRoot from '../../store/reducers';
+import { Plant } from '../../models/plant';
 
 export interface PlantsState {
   plants: fromPlants.State;
@@ -35,7 +36,7 @@ export const getSelectedPlant = createSelector(
   getPlantEntities,
   getSelectedPlantId,
   (entities, selectedId: string) => {
-    return selectedId && entities[selectedId];
+    return (selectedId && entities[selectedId]) || <Plant>{};
   }
 );
 

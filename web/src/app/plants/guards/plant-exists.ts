@@ -5,6 +5,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/let';
+import 'rxjs/add/observable/of';
+
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
@@ -49,6 +51,11 @@ export class PlantExistsGuard implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    return this.hasPlant(route.params['id']);
+    const id = route.params['id'];
+    if (id === 'add') {
+      return Observable.of(true);
+    }
+
+    return this.hasPlant(id);
   }
 }

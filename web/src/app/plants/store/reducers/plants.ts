@@ -43,9 +43,10 @@ export function reducer(
       };
     }
 
-    case plant.ADD: {
+    case plant.ADD_SUCCESS: {
       return {
-        ...adapter.addOne(action.payload, state)
+        ...adapter.addOne(action.payload, state),
+        selectedPlantId: action.payload._id
       };
     }
 
@@ -63,7 +64,8 @@ export function reducer(
 
     case plant.DELETE: {
       return {
-        ...adapter.removeOne(action.payload, state)
+        ...adapter.removeOne(action.payload, state),
+        selectedPlantId: initialState.selectedPlantId
       };
     }
 

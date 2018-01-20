@@ -8,13 +8,13 @@ const plantSchema = new mongoose.Schema({
   sort: Number
 });
 
-plantSchema.pre('save', next => {
-  if (!this.created_at) {
-    this.created_at = new Date();
-  }
+// plantSchema.pre('save', next => {
+//   if (!this.created_at) {
+//     this.created_at = new Date();
+//   }
 
-  next();
-});
+//   next();
+// });
 
 // plantSchema.pre('findOneAndUpdate', next => {
 //   console.log('updating... setting updated at');

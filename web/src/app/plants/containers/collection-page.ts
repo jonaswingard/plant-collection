@@ -11,6 +11,7 @@ import { Plant } from '../models/plant';
   template: `
     <h1>CollectionPage</h1>
     <h2>Plants</h2>
+    <a [routerLink]="['./add']">Add Plant</a>
     <pc-plant-list [plants]="plants$ | async"></pc-plant-list>
   `
 })

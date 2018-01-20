@@ -49,7 +49,7 @@ import {
       <button [disabled]="form.invalid">
         Submit
       </button>
-      <button type="button" [disabled]="plant._id" (click)="delete(plant._id)">
+      <button type="button" [disabled]="!plant._id" (click)="delete(plant._id)">
         Delete
       </button>
     </form>

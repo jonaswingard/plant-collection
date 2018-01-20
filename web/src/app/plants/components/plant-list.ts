@@ -10,7 +10,7 @@ import { Plant } from '../models/plant';
   template: `
     <ul>
       <li *ngFor="let plant of plants">
-        <a [routerLink]="plant._id">
+        <a [routerLink]="plant._id" *ngIf="plant && plant._id">
             {{ plant.name }}
         </a>
       </li>

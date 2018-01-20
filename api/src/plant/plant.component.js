@@ -15,19 +15,19 @@ router.get('/:id', (req, res) => {
 
 router.put('/:id', (req, res) => {
   Plant.findByIdAndUpdate(req.params.id, req.body, (err, plant) => {
-    res.sendStatus(200);
+    res.send(plant);
   });
 });
 
 router.post('/', (req, res) => {
-  new Plant({
-    name: req.body
-  }).save(() => res.sendStatus(200));
+  new Plant(req.body).save((err, plant) => {
+    res.send(plant);
+  });
 });
 
 router.delete('/:id', (req, res) => {
   Plant.findByIdAndRemove(req.params.id, () => {
-    res.sendStatus(200);
+    res.sendStatus(204);
   });
 });
 

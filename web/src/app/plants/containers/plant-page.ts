@@ -4,7 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import * as fromPlants from '../store/reducers';
 import * as collection from '../store/actions/collection';
 import * as plant from '../store/actions/plant';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { Subscription } from 'rxjs/Subscription';
 import { Plant } from '../models/plant';
@@ -14,6 +14,7 @@ import { Plant } from '../models/plant';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <h1>Plant Page</h1>
+    <a [routerLink]="['../']">Tillbaka</a>
     <pc-plant-edit [plant]="plant$ | async" (onSubmit)="upsert($event)" (onDelete)="delete($event)"></pc-plant-edit>
   `
 })
@@ -23,10 +24,11 @@ export class PlantPageComponent implements OnDestroy {
 
   constructor(
     private route: ActivatedRoute,
+    router: Router,
     private store: Store<fromPlants.PlantsState>
   ) {
     this.actionsSubscription = this.route.params
-      .filter(p => p.id)
+      .filter(p => p.id && p.id !== 'add')
       .map(params => new plant.Select(params.id))
       .subscribe(store);
 
@@ -39,11 +41,13 @@ export class PlantPageComponent implements OnDestroy {
 
   upsert(plantItem: Plant) {
     this.store.dispatch(
-      plantItem._id ? new plant.Update(plantItem) : new plant.Add(plantItem)
+      plantItem._id
+        ? new plant.Update(plantItem)
+        : delete plantItem._id && new plant.Add(plantItem)
     );
   }
 
   delete(id: string) {
-    this.store.dispatch(new plant.Delete(id));
+    confirm('Are you soure?') && this.store.dispatch(new plant.Delete(id));
   }
 }

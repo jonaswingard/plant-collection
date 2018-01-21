@@ -21,9 +21,6 @@ import {
 @Component({
   selector: 'pc-plant-edit',
   template: `
-  <pre>
-{{ plant | json }}
-  </pre>
     <form [formGroup]="form" (ngSubmit)="submit(form)">
       <label>
         Name

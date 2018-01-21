@@ -1,16 +1,19 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import * as fromPlants from './plants';
+import * as fromNotes from './notes';
 import * as fromCollection from './collection';
 import * as fromRoot from '../../store/reducers';
 import { Plant } from '../../models/plant';
 
 export interface PlantsState {
   plants: fromPlants.State;
+  notes: fromNotes.State;
   collection: fromCollection.State;
 }
 
 export const reducers = {
   plants: fromPlants.reducer,
+  notes: fromNotes.reducer,
   collection: fromCollection.reducer
 };
 
@@ -72,4 +75,20 @@ export const isSelectedPlantInCollection = createSelector(
   (ids, selected: string) => {
     return ids.indexOf(selected) > -1;
   }
+);
+
+/* Notes */
+export const getNoteEntitiesState = createSelector(
+  getPlantsState,
+  state => state.notes
+);
+export const {
+  selectEntities: getNoteEntities,
+  selectAll: getAllNotes
+} = fromNotes.adapter.getSelectors(getNoteEntitiesState);
+
+export const getNotes = createSelector(
+  getSelectedPlantId,
+  getAllNotes,
+  (plantId, notes) => notes.filter(n => n.plant_id === plantId)
 );

@@ -4,10 +4,12 @@ import { Observable } from 'rxjs/Observable';
 import * as fromPlants from '../store/reducers';
 import * as collection from '../store/actions/collection';
 import * as plant from '../store/actions/plant';
+import * as note from '../store/actions/note';
 import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
 import { Subscription } from 'rxjs/Subscription';
 import { Plant } from '../models/plant';
+import { Note } from '../models/note';
 
 @Component({
   selector: 'pc-collection-page',
@@ -15,12 +17,35 @@ import { Plant } from '../models/plant';
   template: `
     <h1>Plant Page</h1>
     <a [routerLink]="['../']">Tillbaka</a>
-    <pc-plant-edit [plant]="plant$ | async" (onSubmit)="upsert($event)" (onDelete)="delete($event)"></pc-plant-edit>
+    <div class="row">
+      <div class="column">
+        <h2>Plant Edit</h2>
+        <pc-plant-edit [plant]="plant$ | async" (onSubmit)="upsert($event)" (onDelete)="delete($event)"></pc-plant-edit>
+      </div>
+      <div class="column">
+        <h2>Notes</h2>
+        <pc-note-list [notes]="notes$ | async"></pc-note-list>
+        <pc-note-edit [plant]="plant$ | async" (onSubmit)="addNote($event)"></pc-note-edit>
+      </div>
+    </div>
+  `,
+  styles: [
+    `
+    .row {
+      width: 1000px;
+      margin: 0 auto;
+      display: flex;
+    }
+    .column {
+      width: 50%;
+    }
   `
+  ]
 })
 export class PlantPageComponent implements OnDestroy {
   actionsSubscription: Subscription;
   plant$: Observable<Plant>;
+  notes$: Observable<Note[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +58,7 @@ export class PlantPageComponent implements OnDestroy {
       .subscribe(store);
 
     this.plant$ = store.select(fromPlants.getSelectedPlant);
+    this.notes$ = store.select(fromPlants.getNotes);
   }
 
   ngOnDestroy() {
@@ -49,5 +75,9 @@ export class PlantPageComponent implements OnDestroy {
 
   delete(id: string) {
     confirm('Are you soure?') && this.store.dispatch(new plant.Delete(id));
+  }
+
+  addNote(noteItem: Note) {
+    this.store.dispatch(new note.Add(noteItem));
   }
 }

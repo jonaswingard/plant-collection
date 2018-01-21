@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
-import * as fromPlants from '../store/reducers';
-import * as collection from '../store/actions/collection';
 import { Plant } from '../models/plant';
 
 @Component({

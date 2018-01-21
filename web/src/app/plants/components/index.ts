@@ -5,8 +5,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { PlantListComponent } from './plant-list';
 import { PlantEditComponent } from './plant-edit';
+import { NoteEditComponent } from './note-edit';
+import { NoteListComponent } from './note-list';
 
-export const COMPONENTS = [PlantListComponent, PlantEditComponent];
+export const COMPONENTS = [
+  PlantListComponent,
+  PlantEditComponent,
+  NoteEditComponent,
+  NoteListComponent
+];
 
 @NgModule({
   imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],

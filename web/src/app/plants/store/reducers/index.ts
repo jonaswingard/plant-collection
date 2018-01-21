@@ -4,6 +4,7 @@ import * as fromNotes from './notes';
 import * as fromCollection from './collection';
 import * as fromRoot from '../../store/reducers';
 import { Plant } from '../../models/plant';
+import { Note } from '../../models/note';
 
 export interface PlantsState {
   plants: fromPlants.State;
@@ -60,7 +61,6 @@ export const getCollectionPlantIds = createSelector(
   getCollectionState,
   fromCollection.getIds
 );
-
 export const getPlantCollection = createSelector(
   getPlantEntities,
   getCollectionPlantIds,
@@ -86,9 +86,19 @@ export const {
   selectEntities: getNoteEntities,
   selectAll: getAllNotes
 } = fromNotes.adapter.getSelectors(getNoteEntitiesState);
-
+export const getSelectedNoteId = createSelector(
+  getNoteEntitiesState,
+  fromNotes.getSelectedId
+);
 export const getNotes = createSelector(
   getSelectedPlantId,
   getAllNotes,
   (plantId, notes) => notes.filter(n => n.plant_id === plantId)
+);
+export const getSelectedNote = createSelector(
+  getNoteEntities,
+  getSelectedNoteId,
+  (entities, selectedId: string) => {
+    return (selectedId && entities[selectedId]) || <Note>{};
+  }
 );

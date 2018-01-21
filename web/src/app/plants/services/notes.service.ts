@@ -22,8 +22,8 @@ export class NotesService {
 
   updateNote(note: Note): Observable<any> {
     return this.http.put<any>(
-      `${environment.plantsUrl}/${note.plant_id}/notes`,
-      note._id
+      `${environment.plantsUrl}/${note.plant_id}/notes/${note._id}`,
+      note
     );
   }
 

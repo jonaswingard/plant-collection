@@ -44,19 +44,23 @@ import { Plant } from '../models/plant';
 })
 export class NoteEditComponent implements OnChanges {
   @Input() plant: Plant;
+  @Input() note: Note;
   @Output() onSubmit = new EventEmitter<Note>();
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
       text: ['', Validators.required],
-      plant_id: ''
+      plant_id: '',
+      _id: ''
     });
   }
 
   ngOnChanges(changes) {
     this.form.patchValue({
-      plant_id: this.plant._id
+      plant_id: this.plant._id,
+      _id: this.note._id,
+      text: this.note.text
     });
   }
 

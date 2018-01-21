@@ -24,8 +24,8 @@ import { Note } from '../models/note';
       </div>
       <div class="column">
         <h2>Notes</h2>
-        <pc-note-list [notes]="notes$ | async"></pc-note-list>
-        <pc-note-edit [plant]="plant$ | async" (onSubmit)="addNote($event)"></pc-note-edit>
+        <pc-note-list [notes]="notes$ | async" (onAction)="handleNote($event)"></pc-note-list>
+        <pc-note-edit [plant]="plant$ | async" [note]="note$ | async" (onSubmit)="upsertNote($event)"></pc-note-edit>
       </div>
     </div>
   `,
@@ -46,6 +46,7 @@ export class PlantPageComponent implements OnDestroy {
   actionsSubscription: Subscription;
   plant$: Observable<Plant>;
   notes$: Observable<Note[]>;
+  note$: Observable<Note>;
 
   constructor(
     private route: ActivatedRoute,
@@ -59,6 +60,7 @@ export class PlantPageComponent implements OnDestroy {
 
     this.plant$ = store.select(fromPlants.getSelectedPlant);
     this.notes$ = store.select(fromPlants.getNotes);
+    this.note$ = store.select(fromPlants.getSelectedNote);
   }
 
   ngOnDestroy() {
@@ -77,7 +79,19 @@ export class PlantPageComponent implements OnDestroy {
     confirm('Are you soure?') && this.store.dispatch(new plant.Delete(id));
   }
 
-  addNote(noteItem: Note) {
-    this.store.dispatch(new note.Add(noteItem));
+  upsertNote(noteItem: Note) {
+    this.store.dispatch(
+      noteItem._id
+        ? new note.Update(noteItem)
+        : delete noteItem._id && new note.Add(noteItem)
+    );
+  }
+
+  handleNote([type, item]: [string, Note]) {
+    if (type === 'delete') {
+      this.store.dispatch(new note.Delete(item));
+    } else if (type === 'select') {
+      this.store.dispatch(new note.Select(item._id));
+    }
   }
 }

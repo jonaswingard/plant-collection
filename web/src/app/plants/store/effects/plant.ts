@@ -13,6 +13,7 @@ import { of } from 'rxjs/observable/of';
 
 import * as plant from '../actions/plant';
 import * as note from '../actions/note';
+import * as activity from '../actions/activity';
 import { PlantsService } from '../../services/plants.service';
 import { Plant } from '../../models/plant';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -67,5 +68,5 @@ export class PlantEffects {
   select$: Observable<any> = this.actions$
     .ofType<plant.Select>(plant.SELECT)
     .map(action => action.payload)
-    .map(plantId => new note.Load(plantId));
+    .mergeMap(plantId => [new note.Load(plantId), new activity.Load(plantId]);
 }

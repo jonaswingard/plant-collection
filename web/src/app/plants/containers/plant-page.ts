@@ -1,15 +1,20 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
-import * as fromPlants from '../store/reducers';
-import * as collection from '../store/actions/collection';
-import * as plant from '../store/actions/plant';
-import * as note from '../store/actions/note';
-import { ActivatedRoute, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import { Subscription } from 'rxjs/Subscription';
-import { Plant } from '../models/plant';
+
+import * as activity from '../store/actions/activity';
+import * as collection from '../store/actions/collection';
+import * as fromPlants from '../store/reducers';
+import * as note from '../store/actions/note';
+import * as plant from '../store/actions/plant';
+
+import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+
+import { Activity } from '../models/activity';
 import { Note } from '../models/note';
+import { Observable } from 'rxjs/Observable';
+import { Plant } from '../models/plant';
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'pc-collection-page',
@@ -23,6 +28,10 @@ import { Note } from '../models/note';
         <pc-plant-edit [plant]="plant$ | async" (onSubmit)="upsert($event)" (onDelete)="delete($event)"></pc-plant-edit>
       </div>
       <div class="column">
+        <h2>Activites</h2>
+        <pc-activity [plant]="plant$ | async" (onAdd)="addActivity($event)"></pc-activity>
+        <pc-activity-list [activities]="activities$ | async"></pc-activity-list>
+        
         <h2>Notes</h2>
         <pc-note-list [notes]="notes$ | async" (onAction)="handleNote($event)"></pc-note-list>
         <pc-note-edit [plant]="plant$ | async" [note]="note$ | async" (onSubmit)="upsertNote($event)"></pc-note-edit>
@@ -47,6 +56,7 @@ export class PlantPageComponent implements OnDestroy {
   plant$: Observable<Plant>;
   notes$: Observable<Note[]>;
   note$: Observable<Note>;
+  activities$: Observable<Activity[]>;
 
   constructor(
     private route: ActivatedRoute,
@@ -61,6 +71,7 @@ export class PlantPageComponent implements OnDestroy {
     this.plant$ = store.select(fromPlants.getSelectedPlant);
     this.notes$ = store.select(fromPlants.getNotes);
     this.note$ = store.select(fromPlants.getSelectedNote);
+    this.activities$ = store.select(fromPlants.getActivites);
   }
 
   ngOnDestroy() {
@@ -93,5 +104,9 @@ export class PlantPageComponent implements OnDestroy {
     } else if (type === 'select') {
       this.store.dispatch(new note.Select(item._id));
     }
+  }
+
+  addActivity(activityItem: Activity) {
+    this.store.dispatch(new activity.Add(activityItem));
   }
 }

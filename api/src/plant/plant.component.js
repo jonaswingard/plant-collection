@@ -1,6 +1,7 @@
 import express from 'express';
 import Plant from './plant.model';
 import Note from '../note/note.model';
+import Activity from '../activity/activity.model';
 
 const router = express.Router();
 
@@ -24,6 +25,7 @@ router.delete('/:id', (req, res) =>
   Plant.findByIdAndRemove(req.params.id, () => res.sendStatus(204))
 );
 
+/* Notes */
 router.get('/:id/notes', (req, res) =>
   Note.find({ plant_id: req.params.id }, (err, notes) => {
     res.send(notes);
@@ -42,6 +44,29 @@ router.put('/:id/notes/:noteId', (req, res) =>
 
 router.delete('/:id/notes/:noteId', (req, res) =>
   Note.findByIdAndRemove(req.params.noteId, () => res.sendStatus(204))
+);
+
+/* Activities */
+router.get('/:id/activities', (req, res) =>
+  Activity.find({ plant_id: req.params.id }, (err, activities) => {
+    res.send(activities);
+  }).sort('-date')
+);
+
+router.post('/:id/activities', (req, res) =>
+  new Activity(req.body).save((err, activities) => res.send(activities))
+);
+
+router.put('/:id/activities/:activityId', (req, res) =>
+  Activity.findByIdAndUpdate(
+    req.params.activityId,
+    req.body,
+    (err, activities) => res.send(activities)
+  )
+);
+
+router.delete('/:id/activities/:activityId', (req, res) =>
+  Activity.findByIdAndRemove(req.params.activityId, () => res.sendStatus(204))
 );
 
 module.exports = router;

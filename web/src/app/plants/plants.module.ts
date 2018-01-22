@@ -1,18 +1,20 @@
-import { StoreModule } from '@ngrx/store';
-import { CollectionPageComponent } from './containers/collection-page';
-import { RouterModule } from '@angular/router';
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { reducers } from './store/reducers';
-import { EffectsModule } from '@ngrx/effects';
+import { ActivityEffects } from './store/effects/activity';
+import { ActivitiesService } from './services/activities.service';
 import { CollectionEffects } from './store/effects/collection';
-import { PlantEffects } from './store/effects/plant';
-import { NoteEffects } from './store/effects/note';
-import { PlantsService } from './services/plants.service';
-import { NotesService } from './services/notes.service';
+import { CollectionPageComponent } from './containers/collection-page';
+import { CommonModule } from '@angular/common';
 import { ComponentsModule } from './components';
-import { PlantPageComponent } from './containers/plant-page';
+import { EffectsModule } from '@ngrx/effects';
+import { NgModule } from '@angular/core';
+import { NoteEffects } from './store/effects/note';
+import { NotesService } from './services/notes.service';
+import { PlantEffects } from './store/effects/plant';
 import { PlantExistsGuard } from './guards/plant-exists';
+import { PlantPageComponent } from './containers/plant-page';
+import { PlantsService } from './services/plants.service';
+import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { reducers } from './store/reducers';
 
 @NgModule({
   imports: [
@@ -27,9 +29,14 @@ import { PlantExistsGuard } from './guards/plant-exists';
       }
     ]),
     StoreModule.forFeature('plants', reducers),
-    EffectsModule.forFeature([CollectionEffects, PlantEffects, NoteEffects])
+    EffectsModule.forFeature([
+      CollectionEffects,
+      PlantEffects,
+      NoteEffects,
+      ActivityEffects
+    ])
   ],
   declarations: [CollectionPageComponent, PlantPageComponent],
-  providers: [PlantsService, PlantExistsGuard, NotesService]
+  providers: [PlantsService, PlantExistsGuard, NotesService, ActivitiesService]
 })
 export class PlantsModule {}

@@ -1,13 +1,13 @@
 import { Action } from '@ngrx/store';
-import { Note } from '../../models/note';
+import { Activity } from '../../models/activity';
 
-export const LOAD = '[Note] Load Items';
-export const LOAD_SUCCESS = '[Note] Load Items Success';
-export const SELECT = '[Note] Select';
-export const ADD = '[Note] Add';
-export const UPDATE = '[Note] Update';
-export const DELETE = '[Note] Delete';
-export const SAVE_SUCCESS = '[Note] Save Success';
+export const LOAD = '[Activity] Load Items';
+export const LOAD_SUCCESS = '[Activity] Load Items Success';
+export const SELECT = '[Activity] Select';
+export const ADD = '[Activity] Add';
+export const UPDATE = '[Activity] Update';
+export const DELETE = '[Activity] Delete';
+export const SAVE_SUCCESS = '[Activity] Save Success';
 
 export class Load implements Action {
   readonly type = LOAD;
@@ -16,7 +16,7 @@ export class Load implements Action {
 
 export class LoadSuccess implements Action {
   readonly type = LOAD_SUCCESS;
-  constructor(public payload: Note[]) {}
+  constructor(public payload: Activity[]) {}
 }
 
 export class Select implements Action {
@@ -26,17 +26,17 @@ export class Select implements Action {
 
 export class Add implements Action {
   readonly type = ADD;
-  constructor(public payload: Note) {}
+  constructor(public payload: Activity) {}
 }
 
 export class Update implements Action {
   readonly type = UPDATE;
-  constructor(public payload: Note) {}
+  constructor(public payload: Activity) {}
 }
 
 export class Delete implements Action {
   readonly type = DELETE;
-  constructor(public payload: Note) {}
+  constructor(public payload: Activity) {}
 }
 
 export class SaveSuccess implements Action {

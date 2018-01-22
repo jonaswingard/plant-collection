@@ -1,21 +1,25 @@
 import { createSelector, createFeatureSelector } from '@ngrx/store';
+import * as fromRoot from '../../store/reducers';
+import * as fromCollection from './collection';
 import * as fromPlants from './plants';
 import * as fromNotes from './notes';
-import * as fromCollection from './collection';
-import * as fromRoot from '../../store/reducers';
+import * as fromActivities from './activities';
 import { Plant } from '../../models/plant';
 import { Note } from '../../models/note';
+import { Activity } from '../../models/activity';
 
 export interface PlantsState {
+  collection: fromCollection.State;
   plants: fromPlants.State;
   notes: fromNotes.State;
-  collection: fromCollection.State;
+  activities: fromActivities.State;
 }
 
 export const reducers = {
+  collection: fromCollection.reducer,
   plants: fromPlants.reducer,
   notes: fromNotes.reducer,
-  collection: fromCollection.reducer
+  activities: fromActivities.reducer
 };
 
 export const getPlantsState = createFeatureSelector<PlantsState>('plants');
@@ -100,5 +104,31 @@ export const getSelectedNote = createSelector(
   getSelectedNoteId,
   (entities, selectedId: string) => {
     return (selectedId && entities[selectedId]) || <Note>{};
+  }
+);
+
+/* Activities */
+export const getActivityEntitiesState = createSelector(
+  getPlantsState,
+  state => state.activities
+);
+export const {
+  selectEntities: getActivityEntities,
+  selectAll: getAllActivities
+} = fromActivities.adapter.getSelectors(getActivityEntitiesState);
+export const getSelectedActivityId = createSelector(
+  getActivityEntitiesState,
+  fromActivities.getSelectedId
+);
+export const getActivites = createSelector(
+  getSelectedPlantId,
+  getAllActivities,
+  (plantId, activites) => activites.filter(n => n.plant_id === plantId)
+);
+export const getSelectedActivity = createSelector(
+  getActivityEntities,
+  getSelectedActivityId,
+  (entities, selectedId: string) => {
+    return (selectedId && entities[selectedId]) || <Activity>{};
   }
 );

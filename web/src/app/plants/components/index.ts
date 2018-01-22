@@ -7,12 +7,16 @@ import { PlantListComponent } from './plant-list';
 import { PlantEditComponent } from './plant-edit';
 import { NoteEditComponent } from './note-edit';
 import { NoteListComponent } from './note-list';
+import { ActivityComponent } from './activity';
+import { ActivityListComponent } from './activity-list';
 
 export const COMPONENTS = [
   PlantListComponent,
   PlantEditComponent,
   NoteEditComponent,
-  NoteListComponent
+  NoteListComponent,
+  ActivityComponent,
+  ActivityListComponent
 ];
 
 @NgModule({

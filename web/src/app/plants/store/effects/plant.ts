@@ -68,5 +68,5 @@ export class PlantEffects {
   select$: Observable<any> = this.actions$
     .ofType<plant.Select>(plant.SELECT)
     .map(action => action.payload)
-    .mergeMap(plantId => [new note.Load(plantId), new activity.Load(plantId]);
+    .mergeMap(plantId => [new note.Load(plantId), new activity.Load(plantId)]);
 }

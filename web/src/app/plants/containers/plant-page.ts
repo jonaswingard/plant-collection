@@ -25,6 +25,9 @@ import { Subscription } from 'rxjs/Subscription';
     <div class="row">
       <div class="column">
         <h2>Plant Edit</h2>
+        <pc-upload-image [plant]="plant$ | async" (onFileChange)="onPlantImageUload($event)" ></pc-upload-image>
+        <br>
+        <br>
         <pc-plant-edit [plant]="plant$ | async" (onSubmit)="upsert($event)" (onDelete)="delete($event)"></pc-plant-edit>
       </div>
       <div class="column">
@@ -108,5 +111,9 @@ export class PlantPageComponent implements OnDestroy {
 
   addActivity(activityItem: Activity) {
     this.store.dispatch(new activity.Add(activityItem));
+  }
+
+  onPlantImageUload([plantItem, file]) {
+    this.store.dispatch(new plant.UploadImage([plantItem, file]));
   }
 }

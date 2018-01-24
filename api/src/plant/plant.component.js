@@ -25,4 +25,12 @@ router.delete('/:id', (req, res) =>
   Plant.findByIdAndRemove(req.params.id, () => res.sendStatus(204))
 );
 
+router.post('/:id/image/upload', (req, res) => {
+  if (!req.files) {
+    return res.status(400).send('No files were uploaded.');
+  }
+
+  res.send({ url: req.files.image.file.replace('public', '') });
+});
+
 module.exports = router;

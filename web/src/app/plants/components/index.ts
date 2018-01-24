@@ -9,6 +9,7 @@ import { NoteEditComponent } from './note-edit';
 import { NoteListComponent } from './note-list';
 import { ActivityComponent } from './activity';
 import { ActivityListComponent } from './activity-list';
+import { UploadImageComponent } from './upload-image';
 
 export const COMPONENTS = [
   PlantListComponent,
@@ -16,7 +17,8 @@ export const COMPONENTS = [
   NoteEditComponent,
   NoteListComponent,
   ActivityComponent,
-  ActivityListComponent
+  ActivityListComponent,
+  UploadImageComponent
 ];
 
 @NgModule({

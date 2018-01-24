@@ -69,4 +69,19 @@ export class PlantEffects {
     .ofType<plant.Select>(plant.SELECT)
     .map(action => action.payload)
     .mergeMap(plantId => [new note.Load(plantId), new activity.Load(plantId)]);
+
+  @Effect()
+  uploadImage$: Observable<any> = this.actions$
+    .ofType<plant.UploadImage>(plant.UPLOAD_IMAGE)
+    .map(action => action.payload)
+    .switchMap(([plantItem, file]) =>
+      this.plantsService.uploadImage(plantItem._id, file).map(
+        data =>
+          <Plant>{
+            ...plantItem,
+            image_url: data.url
+          }
+      )
+    )
+    .map(updatedPlant => new plant.Update(updatedPlant));
 }

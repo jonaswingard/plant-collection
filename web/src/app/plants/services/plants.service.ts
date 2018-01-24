@@ -28,4 +28,14 @@ export class PlantsService {
   deletePlant(id: string): Observable<any> {
     return this.http.delete<any>(`${environment.plantsUrl}/${id}`);
   }
+
+  uploadImage(id, file): Observable<any> {
+    const formData: FormData = new FormData();
+    formData.append('image', file);
+
+    return this.http.post(
+      `${environment.plantsUrl}/${id}/image/upload`,
+      formData
+    );
+  }
 }

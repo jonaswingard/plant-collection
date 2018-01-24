@@ -21,6 +21,7 @@ import {
 @Component({
   selector: 'pc-plant-edit',
   template: `
+    <img *ngIf="plant && plant.image_url" [src]="'http://localhost:8080/' + plant.image_url">
     <form [formGroup]="form" (ngSubmit)="submit(form)">
       <label>
         Name

@@ -5,7 +5,8 @@ const plantSchema = new mongoose.Schema({
   water: String,
   fertilize: String,
   placement: String,
-  sort: Number
+  sort: Number,
+  image_url: String
 });
 
 // plantSchema.pre('save', next => {

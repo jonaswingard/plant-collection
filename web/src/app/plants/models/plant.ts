@@ -5,4 +5,5 @@ export interface Plant {
   fertilize: string;
   placement: string;
   sort: number;
+  image_url: string;
 }

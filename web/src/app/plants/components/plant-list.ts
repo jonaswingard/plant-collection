@@ -1,6 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs/Observable';
 import { Plant } from '../models/plant';
 
 @Component({

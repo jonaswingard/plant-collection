@@ -8,6 +8,7 @@ export const ADD_SUCCESS = '[Plant] Add Success';
 export const UPDATE = '[Plant] Update';
 export const DELETE = '[Plant] Delete';
 export const SAVE_SUCCESS = '[Plant] Save Success';
+export const UPLOAD_IMAGE = '[Plant] Upload Image';
 
 export class Load implements Action {
   readonly type = LOAD;
@@ -44,6 +45,11 @@ export class SaveSuccess implements Action {
   constructor(public payload: string[]) {}
 }
 
+export class UploadImage implements Action {
+  readonly type = UPLOAD_IMAGE;
+  constructor(public payload: any[]) {}
+}
+
 export type Actions =
   | Load
   | Select
@@ -51,4 +57,5 @@ export type Actions =
   | Update
   | Delete
   | SaveSuccess
+  | UploadImage
   | AddSuccess;

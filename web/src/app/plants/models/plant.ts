@@ -6,4 +6,6 @@ export interface Plant {
   placement: string;
   sort: number;
   image_url: string;
+  created: Date;
+  updated: Date;
 }

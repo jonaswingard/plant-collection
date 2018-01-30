@@ -3,5 +3,5 @@ export interface Note {
   plant_id: string;
   text: string;
   created: Date;
-  modified: Date;
+  updated: Date;
 }

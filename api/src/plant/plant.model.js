@@ -6,21 +6,22 @@ const plantSchema = new mongoose.Schema({
   fertilize: String,
   placement: String,
   sort: Number,
-  image_url: String
+  image_url: String,
+  created: Date,
+  updated: Date
 });
 
-// plantSchema.pre('save', next => {
-//   if (!this.created_at) {
-//     this.created_at = new Date();
-//   }
+plantSchema.pre('save', function(next) {
+  if (!this.created) {
+    this.created = new Date();
+  }
 
-//   next();
-// });
+  next();
+});
 
-// plantSchema.pre('findOneAndUpdate', next => {
-//   console.log('updating... setting updated at');
-//   this.updated_at = new Date();
-//   next();
-// });
+plantSchema.pre('findOneAndUpdate', function(next) {
+  this.update({}, { $set: { updated: new Date() } });
+  next();
+});
 
 export default mongoose.model('plants', plantSchema);

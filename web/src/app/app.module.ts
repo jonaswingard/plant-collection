@@ -14,6 +14,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { reducers, metaReducers } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
+import './shared/rxjs-operators';
+
 @NgModule({
   imports: [
     BrowserModule,

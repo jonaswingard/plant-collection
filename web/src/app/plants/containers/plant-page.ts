@@ -1,5 +1,3 @@
-import 'rxjs/add/operator/filter';
-
 import * as activity from '../store/actions/activity';
 import * as collection from '../store/actions/collection';
 import * as fromPlants from '../store/reducers';

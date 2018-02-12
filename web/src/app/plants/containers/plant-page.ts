@@ -18,15 +18,22 @@ import { Subscription } from 'rxjs/Subscription';
   selector: 'pc-collection-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h1>Plant Page</h1>
-    <a [routerLink]="['../']">Tillbaka</a>
+    <div class="row">
+      <div class="column">
+        <h1>Plant Page</h1>
+        <a [routerLink]="['../']" title="Back to start...">
+          <mat-icon>arrow_back</mat-icon>
+        </a>
+      </div>
+    </div>
     <div class="row">
       <div class="column">
         <h2>Plant Edit</h2>
         <pc-upload-image [plant]="plant$ | async" (onFileChange)="onPlantImageUload($event)" ></pc-upload-image>
         <br>
         <br>
-        <pc-plant-edit [plant]="plant$ | async" (onSubmit)="upsert($event)" (onDelete)="delete($event)"></pc-plant-edit>
+        <pc-plant-view *ngIf="!edit" [plant]="plant$ | async" (onEdit)="edit = !edit"></pc-plant-view>
+        <pc-plant-edit *ngIf="edit" [plant]="plant$ | async" (onSubmit)="upsert($event)" (onDelete)="delete($event)"></pc-plant-edit>
       </div>
       <div class="column">
         <h2>Activites</h2>
@@ -38,19 +45,7 @@ import { Subscription } from 'rxjs/Subscription';
         <pc-note-edit [plant]="plant$ | async" [note]="note$ | async" (onSubmit)="upsertNote($event)"></pc-note-edit>
       </div>
     </div>
-  `,
-  styles: [
-    `
-    .row {
-      width: 1000px;
-      margin: 0 auto;
-      display: flex;
-    }
-    .column {
-      width: 50%;
-    }
   `
-  ]
 })
 export class PlantPageComponent implements OnDestroy {
   actionsSubscription: Subscription;
@@ -58,6 +53,7 @@ export class PlantPageComponent implements OnDestroy {
   notes$: Observable<Note[]>;
   note$: Observable<Note>;
   activities$: Observable<Activity[]>;
+  edit: boolean;
 
   constructor(
     private route: ActivatedRoute,

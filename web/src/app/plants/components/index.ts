@@ -11,10 +11,12 @@ import { ActivityComponent } from './activity';
 import { ActivityListComponent } from './activity-list';
 import { UploadImageComponent } from './upload-image';
 import { MaterialModule } from '../../shared/material.module';
+import { PlantViewComponent } from './plant-view';
 
 export const COMPONENTS = [
   PlantListComponent,
   PlantEditComponent,
+  PlantViewComponent,
   NoteEditComponent,
   NoteListComponent,
   ActivityComponent,

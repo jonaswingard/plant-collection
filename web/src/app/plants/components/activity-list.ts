@@ -9,7 +9,7 @@ import { Activity } from '../models/activity';
     <ul>
       <li *ngFor="let activity of activities">
         <strong [innerHTML]="activity.type"></strong>
-        <span [innerHTML]="activity.date"></span>
+        <span>{{ activity.date | date }}</span>
       </li>
     </ul>
   `

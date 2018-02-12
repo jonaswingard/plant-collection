@@ -15,6 +15,7 @@ import { PlantsService } from './services/plants.service';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/reducers';
+import { MaterialModule } from '../shared/material.module';
 
 @NgModule({
   imports: [
@@ -34,7 +35,8 @@ import { reducers } from './store/reducers';
       PlantEffects,
       NoteEffects,
       ActivityEffects
-    ])
+    ]),
+    MaterialModule
   ],
   declarations: [CollectionPageComponent, PlantPageComponent],
   providers: [PlantsService, PlantExistsGuard, NotesService, ActivitiesService]

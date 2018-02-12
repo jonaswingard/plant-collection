@@ -12,25 +12,25 @@ import { Activity } from '../models/activity';
 @Component({
   selector: 'pc-activity',
   template: `
-      <button (click)="addActivity()">
-        Add Activity
+      <button mat-raised-button (click)="addActivity('water')">
+        Add Water
       </button>
-
+      <button mat-raised-button (click)="addActivity('nutrition')">
+        Add Nutrition
+      </button>
   `
 })
 export class ActivityComponent implements OnChanges {
   @Input() plant: Plant;
   @Output() onAdd = new EventEmitter<Activity>();
 
-  constructor() {}
-
   ngOnChanges(changes) {}
 
-  addActivity() {
+  addActivity(type: string) {
     this.onAdd.emit(<Activity>{
       plant_id: this.plant._id,
       date: new Date(),
-      type: 'water'
+      type
     });
   }
 }

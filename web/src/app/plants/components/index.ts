@@ -10,6 +10,7 @@ import { NoteListComponent } from './note-list';
 import { ActivityComponent } from './activity';
 import { ActivityListComponent } from './activity-list';
 import { UploadImageComponent } from './upload-image';
+import { MaterialModule } from '../../shared/material.module';
 
 export const COMPONENTS = [
   PlantListComponent,
@@ -22,7 +23,13 @@ export const COMPONENTS = [
 ];
 
 @NgModule({
-  imports: [CommonModule, RouterModule, FormsModule, ReactiveFormsModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MaterialModule
+  ],
   declarations: COMPONENTS,
   exports: COMPONENTS
 })

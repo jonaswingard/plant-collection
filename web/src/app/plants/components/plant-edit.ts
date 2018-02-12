@@ -23,31 +23,25 @@ import {
   template: `
     <img *ngIf="plant && plant.image_url" [src]="'http://localhost:8080/' + plant.image_url">
     <form [formGroup]="form" (ngSubmit)="submit(form)">
-      <label>
-        Name
-        <input placeholder="Name" formControlName="name">
-      </label>
-      <label>
-        Water
-        <textarea placeholder="Water" formControlName="water"></textarea>
-      </label>
-      <label>
-        Fertilize
-        <textarea placeholder="Fertilize" formControlName="fertilize"></textarea>
-      </label>
-      <label>
-        Placement
-        <textarea placeholder="Placement" formControlName="placement"></textarea>
-      </label>
-      <label>
-        Sort
-        <input placeholder="Sort" formControlName="sort">
-      </label>
-
-      <button [disabled]="form.invalid">
+      <mat-form-field>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Water" formControlName="water"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Fertilize" formControlName="fertilize"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Placement" formControlName="placement"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Sort" formControlName="sort">
+      </mat-form-field>
+      <button mat-raised-button [disabled]="form.invalid">
         Submit
       </button>
-      <button type="button" [disabled]="!plant._id" (click)="delete(plant._id)">
+      <button type="button" mat-raised-button [disabled]="!plant._id" (click)="delete(plant._id)">
         Delete
       </button>
     </form>
@@ -55,15 +49,8 @@ import {
   `,
   styles: [
     `
-    label {
-      display: block;
-    }
-    input {
-      width: 250px;
-    }
-    textarea {
-      width: 250px;
-      height: 50px;
+    mat-form-field {
+      width: 100%;
     }
   `
   ]

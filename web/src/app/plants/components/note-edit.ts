@@ -20,11 +20,10 @@ import { Plant } from '../models/plant';
   selector: 'pc-note-edit',
   template: `
     <form [formGroup]="form" (ngSubmit)="submit(form)">
-      <label>
-        Text
-        <textarea placeholder="Text" formControlName="text"></textarea>
-      </label>
-      <button [disabled]="form.invalid">
+      <mat-form-field>
+        <textarea matInput placeholder="Text" formControlName="text"></textarea>
+      </mat-form-field>
+      <button mat-raised-button [disabled]="form.invalid">
         Submit
       </button>
     </form>
@@ -32,12 +31,8 @@ import { Plant } from '../models/plant';
   `,
   styles: [
     `
-    label {
-      display: block;
-    }
-    textarea {
-      width: 250px;
-      height: 50px;
+    mat-form-field {
+      width: 100%;
     }
   `
   ]

@@ -6,12 +6,21 @@ import { Plant } from '../models/plant';
   template: `
     <ul>
       <li *ngFor="let plant of plants">
-        <a [routerLink]="plant._id" *ngIf="plant && plant._id">
-            {{ plant.name }}
+        <a mat-button [routerLink]="plant._id" *ngIf="plant && plant._id">
+            {{ plant.name }} | {{ plant.sort }}
         </a>
       </li>
     </ul>
-  `
+  `,
+  styles: [
+    `
+    :host {
+      display: block;
+      width: 400px;
+      margin: 0 auto;
+    }
+    `
+  ]
 })
 export class PlantListComponent {
   @Input() plants: Plant[];

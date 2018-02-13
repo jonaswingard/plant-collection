@@ -28,24 +28,40 @@ import { Subscription } from 'rxjs/Subscription';
     </div>
     <div class="row">
       <div class="column">
-        <h2>Plant Edit</h2>
-        <pc-upload-image [plant]="plant$ | async" (onFileChange)="onPlantImageUload($event)" ></pc-upload-image>
-        <br>
-        <br>
-        <pc-plant-view *ngIf="!edit" [plant]="plant$ | async" (onEdit)="edit = !edit"></pc-plant-view>
-        <pc-plant-edit *ngIf="edit" [plant]="plant$ | async" (onSubmit)="upsert($event)" (onDelete)="delete($event)"></pc-plant-edit>
+        <pc-plant-view *ngIf="!edit" [plant]="plant$ | async" (onEdit)="edit = !edit" (onAddActivity)="addActivity($event)"></pc-plant-view>
+        <pc-plant-edit *ngIf="edit" [plant]="plant$ | async" (onSubmit)="upsert($event); edit = !edit" (onDelete)="delete($event)"></pc-plant-edit>
+        <pc-upload-image *ngIf="edit" [plant]="plant$ | async" (onFileChange)="onPlantImageUload($event)" ></pc-upload-image>
       </div>
       <div class="column">
-        <h2>Activites</h2>
-        <pc-activity [plant]="plant$ | async" (onAdd)="addActivity($event)"></pc-activity>
-        <pc-activity-list [activities]="activities$ | async"></pc-activity-list>
-        
-        <h2>Notes</h2>
-        <pc-note-list [notes]="notes$ | async" (onAction)="handleNote($event)"></pc-note-list>
-        <pc-note-edit [plant]="plant$ | async" [note]="note$ | async" (onSubmit)="upsertNote($event)"></pc-note-edit>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Activities</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <pc-activity-list [activities]="activities$ | async" (onDelete)="deleteActivity($event)"></pc-activity-list>
+            <pc-activity *ngIf="showAddActivity" [plant]="plant$ | async" (onAdd)="addActivity($event)"></pc-activity>
+          </mat-card-content>
+        </mat-card>
+        <mat-divider></mat-divider>
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>Notes</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <pc-note-list [notes]="notes$ | async" (onAction)="handleNote($event)"></pc-note-list>
+            <pc-note-edit [plant]="plant$ | async" [note]="note$ | async" (onSubmit)="upsertNote($event)"></pc-note-edit>
+          </mat-card-content>
+        </mat-card>
       </div>
     </div>
+  `,
+  styles: [
+    `
+    mat-divider {
+      margin: 20px 0;
+    }
   `
+  ]
 })
 export class PlantPageComponent implements OnDestroy {
   actionsSubscription: Subscription;
@@ -54,6 +70,7 @@ export class PlantPageComponent implements OnDestroy {
   note$: Observable<Note>;
   activities$: Observable<Activity[]>;
   edit: boolean;
+  showAddActivity = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -105,6 +122,10 @@ export class PlantPageComponent implements OnDestroy {
 
   addActivity(activityItem: Activity) {
     this.store.dispatch(new activity.Add(activityItem));
+  }
+
+  deleteActivity(activityItem: Activity) {
+    this.store.dispatch(new activity.Delete(activityItem));
   }
 
   onPlantImageUload([plantItem, file]) {

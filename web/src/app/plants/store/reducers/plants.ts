@@ -8,9 +8,14 @@ export interface State extends EntityState<Plant> {
   selectedPlantId: string | null;
 }
 
+export function sortBySort(a: Plant, b: Plant): number {
+  return a.sort - b.sort;
+  // return a.sort.toString().localeCompare(b.sort.toString());
+}
+
 export const adapter: EntityAdapter<Plant> = createEntityAdapter<Plant>({
   selectId: plant => plant._id,
-  sortComparer: false
+  sortComparer: sortBySort
 });
 
 export const initialState: State = adapter.getInitialState({

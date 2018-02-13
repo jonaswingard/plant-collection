@@ -5,7 +5,8 @@ import {
   MatInputModule,
   MatDatepickerModule,
   MatNativeDateModule,
-  MatCardModule
+  MatCardModule,
+  MatDividerModule
 } from '@angular/material';
 import { NgModule } from '@angular/core';
 
@@ -17,7 +18,8 @@ import { NgModule } from '@angular/core';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatDividerModule
   ],
   exports: [
     MatButtonModule,
@@ -26,7 +28,8 @@ import { NgModule } from '@angular/core';
     MatInputModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatCardModule
+    MatCardModule,
+    MatDividerModule
   ]
 })
 export class MaterialModule {}

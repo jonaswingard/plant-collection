@@ -6,11 +6,12 @@ import {
   OnChanges
 } from '@angular/core';
 import { Plant } from '../models/plant';
+import { Activity } from '../models/activity';
 
 @Component({
   selector: 'pc-plant-view',
   template: `
-  <mat-card class="example-card">
+  <mat-card>
     <mat-card-header>
       <div mat-card-avatar>
         <img *ngIf="plant && plant.image_url" mat-card-image [src]="'http://localhost:8080/' + plant.image_url">
@@ -28,8 +29,8 @@ import { Plant } from '../models/plant';
       <p>{{ plant.placement }}</p>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-button>ADD WATER</button>
-      <button mat-button>ADD NUTRITION</button>
+      <button mat-button (click)="addActivity('water')">ADD WATER</button>
+      <button mat-button (click)="addActivity('nutrition')">ADD NUTRITION</button>
     </mat-card-actions>
   </mat-card>
   `,
@@ -50,5 +51,13 @@ import { Plant } from '../models/plant';
 export class PlantViewComponent {
   @Input() plant: Plant;
   @Output() onEdit = new EventEmitter<void>();
-  constructor() {}
+  @Output() onAddActivity = new EventEmitter<Activity>();
+
+  addActivity(type: string) {
+    this.onAddActivity.emit(<Activity>{
+      plant_id: this.plant._id,
+      date: new Date(),
+      type
+    });
+  }
 }

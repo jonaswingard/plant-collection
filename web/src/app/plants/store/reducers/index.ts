@@ -66,11 +66,8 @@ export const getCollectionPlantIds = createSelector(
   fromCollection.getIds
 );
 export const getPlantCollection = createSelector(
-  getPlantEntities,
-  getCollectionPlantIds,
-  (entities, ids) => {
-    return ids.map(id => entities[id]);
-  }
+  getAllPlants,
+  entities => entities
 );
 
 export const isSelectedPlantInCollection = createSelector(

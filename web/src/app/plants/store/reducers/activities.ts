@@ -7,9 +7,13 @@ export interface State extends EntityState<Activity> {
   selectedActivityId: string | null;
 }
 
+export function sortByDate(a: Activity, b: Activity): number {
+  return b.date > a.date ? 1 : 0;
+}
+
 export const adapter: EntityAdapter<Activity> = createEntityAdapter<Activity>({
   selectId: activity => activity._id,
-  sortComparer: false
+  sortComparer: sortByDate
 });
 
 export const initialState: State = adapter.getInitialState({

@@ -56,7 +56,9 @@ export class ActivityEffects {
   delete$: Observable<Action> = this.actions$
     .ofType<activity.Delete>(activity.DELETE)
     .map(action => action.payload)
-    .switchMap(id => this.activitiesService.deleteActivity(id))
+    .switchMap(activityItem =>
+      this.activitiesService.deleteActivity(activityItem)
+    )
     .map(
       () =>
         new activity.SaveSuccess({

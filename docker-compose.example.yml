@@ -1,0 +1,10 @@
+api:
+  build: ./api
+  volumes:
+    - ./api:/www
+    - /www/node_modules
+  ports:
+    - "8080:8080"
+  tty: true
+  environment:
+    - MONGO_CONNECTION=mongodb://user:password@hostname.com

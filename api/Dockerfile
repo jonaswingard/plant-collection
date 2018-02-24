@@ -1,7 +1,12 @@
 FROM node
-WORKDIR /usr/src/app
-COPY package*.json ./
+
+RUN mkdir -p /www
+WORKDIR /www
+
+COPY package.json /www/
 RUN npm install
-COPY . .
+
+COPY . /www
+
 RUN npm install --global nodemon
 CMD [ "npm", "start" ]

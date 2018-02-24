@@ -8,3 +8,13 @@ api:
   tty: true
   environment:
     - MONGO_CONNECTION=mongodb://user:password@hostname.com
+web:
+  build: ./web
+  volumes:
+    - ./web:/www
+    - /www/node_modules
+  tty: true
+  links:
+    - api
+  ports:
+    - "4200:4200"

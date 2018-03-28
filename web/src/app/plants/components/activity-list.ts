@@ -10,6 +10,9 @@ import { Activity } from '../models/activity';
         <li *ngFor="let activity of activities">
           <strong [innerHTML]="activity.type"></strong>
           <span>{{ activity.date | date }}</span>
+          <button title="Edit" mat-icon-button (click)="onAction.emit(['select', activity])">
+            <mat-icon>edit</mat-icon>
+          </button>
           <button mat-icon-button (click)="onDelete.emit(activity)">
             <mat-icon>delete</mat-icon>
           </button>
@@ -20,4 +23,5 @@ import { Activity } from '../models/activity';
 export class ActivityListComponent {
   @Input() activities: Activity[];
   @Output() onDelete = new EventEmitter<Activity>();
+  @Output() onAction = new EventEmitter<['select' | 'delete', Activity]>();
 }

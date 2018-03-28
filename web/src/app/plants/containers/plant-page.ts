@@ -38,7 +38,8 @@ import { Subscription } from 'rxjs/Subscription';
             <mat-card-title>Activities</mat-card-title>
           </mat-card-header>
           <mat-card-content>
-            <pc-activity-list [activities]="activities$ | async" (onDelete)="deleteActivity($event)"></pc-activity-list>
+            <pc-activity-edit *ngIf="activity$ | async" [activity]="activity$ | async" [plant]="plant$ | async" (onSubmit)="editActivity($event)"></pc-activity-edit>
+            <pc-activity-list [activities]="activities$ | async" (onDelete)="deleteActivity($event)" (onAction)="handleActivity($event)"></pc-activity-list>
             <pc-activity *ngIf="showAddActivity" [plant]="plant$ | async" (onAdd)="addActivity($event)"></pc-activity>
           </mat-card-content>
         </mat-card>
@@ -69,12 +70,13 @@ export class PlantPageComponent implements OnDestroy {
   notes$: Observable<Note[]>;
   note$: Observable<Note>;
   activities$: Observable<Activity[]>;
+  activity$: Observable<Activity>;
   edit: boolean;
   showAddActivity = false;
 
   constructor(
     private route: ActivatedRoute,
-    router: Router,
+    private router: Router,
     private store: Store<fromPlants.PlantsState>
   ) {
     this.actionsSubscription = this.route.params
@@ -83,9 +85,12 @@ export class PlantPageComponent implements OnDestroy {
       .subscribe(store);
 
     this.plant$ = store.select(fromPlants.getSelectedPlant);
+
     this.notes$ = store.select(fromPlants.getNotes);
     this.note$ = store.select(fromPlants.getSelectedNote);
+
     this.activities$ = store.select(fromPlants.getActivites);
+    this.activity$ = store.select(fromPlants.getSelectedActivity);
   }
 
   ngOnDestroy() {
@@ -120,12 +125,25 @@ export class PlantPageComponent implements OnDestroy {
     }
   }
 
+  handleActivity([type, item]: [string, Activity]) {
+    if (type === 'delete') {
+      // this.store.dispatch(new note.Delete(item));
+    } else if (type === 'select') {
+      this.store.dispatch(new activity.Select(item._id));
+    }
+  }
+
   addActivity(activityItem: Activity) {
     this.store.dispatch(new activity.Add(activityItem));
+    // this.router.navigateByUrl('/plants');
   }
 
   deleteActivity(activityItem: Activity) {
     this.store.dispatch(new activity.Delete(activityItem));
+  }
+
+  editActivity(activityItem: Activity) {
+    this.store.dispatch(new activity.Update(activityItem));
   }
 
   onPlantImageUload([plantItem, file]) {

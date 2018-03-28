@@ -12,6 +12,7 @@ import { ActivityListComponent } from './activity-list';
 import { UploadImageComponent } from './upload-image';
 import { MaterialModule } from '../../shared/material.module';
 import { PlantViewComponent } from './plant-view';
+import { ActivityEditComponent } from './activity-edit';
 
 export const COMPONENTS = [
   PlantListComponent,
@@ -21,6 +22,7 @@ export const COMPONENTS = [
   NoteListComponent,
   ActivityComponent,
   ActivityListComponent,
+  ActivityEditComponent,
   UploadImageComponent
 ];
 
@@ -35,4 +37,4 @@ export const COMPONENTS = [
   declarations: COMPONENTS,
   exports: COMPONENTS
 })
-export class ComponentsModule {}
+export class ComponentsModule { }

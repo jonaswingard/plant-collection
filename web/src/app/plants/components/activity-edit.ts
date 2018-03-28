@@ -12,40 +12,37 @@ import {
   FormArray,
   Validators
 } from '@angular/forms';
-import { Note } from '../models/note';
+import { Activity } from '../models/activity';
 import { Plant } from '../models/plant';
 
 @Component({
-  selector: 'pc-note-edit',
+  selector: 'pc-activity-edit',
   template: `
     <form [formGroup]="form" (ngSubmit)="submit(form)">
       <mat-form-field>
-        <textarea matInput placeholder="Text" formControlName="text"></textarea>
+        <textarea matInput placeholder="Date" formControlName="date"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <textarea matInput placeholder="Type" formControlName="type"></textarea>
       </mat-form-field>
       <button mat-raised-button [disabled]="form.invalid">
         Submit
       </button>
     </form>
-
-  `,
-  styles: [
-    `
-    mat-form-field {
-      width: 100%;
-    }
   `
-  ]
 })
-export class NoteEditComponent implements OnChanges {
+export class ActivityEditComponent {
+  @Input() activity: Activity;
   @Input() plant: Plant;
-  @Input() note: Note;
-  @Output() onSubmit = new EventEmitter<Note>();
+  @Output() onSubmit = new EventEmitter<Activity>();
+
   form: FormGroup;
 
   constructor(private formBuilder: FormBuilder) {
     this.form = this.formBuilder.group({
-      text: ['', Validators.required],
+      date: ['', Validators.required],
       plant_id: '',
+      type: '',
       _id: ''
     });
   }
@@ -53,8 +50,9 @@ export class NoteEditComponent implements OnChanges {
   ngOnChanges(changes) {
     this.form.patchValue({
       plant_id: this.plant._id,
-      _id: this.note._id,
-      text: this.note.text
+      _id: this.activity._id,
+      date: this.activity.date,
+      type: this.activity.type
     });
   }
 

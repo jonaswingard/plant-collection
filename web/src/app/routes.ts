@@ -8,6 +8,10 @@ export const routes: Routes = [
     path: 'plants',
     loadChildren: './plants/plants.module#PlantsModule'
   },
+  {
+    path: 'auth',
+    loadChildren: './auth/auth.module#RootAuthModule'
+  },
   { path: '404', component: NotFoundPageComponent },
   { path: '**', redirectTo: '404' }
 ];

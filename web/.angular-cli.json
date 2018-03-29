@@ -54,6 +54,10 @@
     }
   },
   "defaults": {
+    "serve": {
+      "port": 4200,
+      "host": "0.0.0.0"
+    },
     "styleExt": "css",
     "class": {
       "spec": false
@@ -61,6 +65,7 @@
     "component": {
       "inlineStyle": true,
       "inlineTemplate": true,
+      "flat": true,
       "spec": false
     },
     "directive": {

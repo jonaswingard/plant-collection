@@ -13,6 +13,7 @@ import { UploadImageComponent } from './upload-image';
 import { MaterialModule } from '../../shared/material.module';
 import { PlantViewComponent } from './plant-view';
 import { ActivityEditComponent } from './activity-edit';
+import { PlantNavComponent } from './plant-nav';
 
 export const COMPONENTS = [
   PlantListComponent,
@@ -23,7 +24,8 @@ export const COMPONENTS = [
   ActivityComponent,
   ActivityListComponent,
   ActivityEditComponent,
-  UploadImageComponent
+  UploadImageComponent,
+  PlantNavComponent
 ];
 
 @NgModule({

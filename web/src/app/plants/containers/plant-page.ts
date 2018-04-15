@@ -24,6 +24,7 @@ import { Subscription } from 'rxjs/Subscription';
         <a [routerLink]="['../']" title="Back to start...">
           <mat-icon>arrow_back</mat-icon>
         </a>
+        <pc-plant-nav [plant]="nextPlant$ | async"></pc-plant-nav>
       </div>
     </div>
     <div class="row">
@@ -67,6 +68,7 @@ import { Subscription } from 'rxjs/Subscription';
 export class PlantPageComponent implements OnDestroy {
   actionsSubscription: Subscription;
   plant$: Observable<Plant>;
+  nextPlant$: Observable<Plant>;
   notes$: Observable<Note[]>;
   note$: Observable<Note>;
   activities$: Observable<Activity[]>;
@@ -85,12 +87,17 @@ export class PlantPageComponent implements OnDestroy {
       .subscribe(store);
 
     this.plant$ = store.select(fromPlants.getSelectedPlant);
+    this.nextPlant$ = store.select(fromPlants.getNextPlant);
 
     this.notes$ = store.select(fromPlants.getNotes);
     this.note$ = store.select(fromPlants.getSelectedNote);
 
     this.activities$ = store.select(fromPlants.getActivites);
     this.activity$ = store.select(fromPlants.getSelectedActivity);
+
+    // todo flytta ut
+    this.store.dispatch(new collection.Load());
+
   }
 
   ngOnDestroy() {

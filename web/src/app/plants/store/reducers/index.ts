@@ -48,6 +48,7 @@ export const getSelectedPlant = createSelector(
   }
 );
 
+
 export const getCollectionState = createSelector(
   getPlantsState,
   (state: PlantsState) => state.collection
@@ -75,6 +76,19 @@ export const isSelectedPlantInCollection = createSelector(
   getSelectedPlantId,
   (ids, selected: string) => {
     return ids.indexOf(selected) > -1;
+  }
+);
+
+export const getNextPlant = createSelector(
+  getSelectedPlantId,
+  getPlantCollection,
+  (selectedPlantId, entities) => {
+    const index = entities.findIndex((p: Plant) => p._id === selectedPlantId);
+    if (entities.length > index) {
+      return entities[index + 1];
+    } else {
+      return entities[0];
+    }
   }
 );
 

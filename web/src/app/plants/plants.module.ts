@@ -16,6 +16,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './store/reducers';
 import { MaterialModule } from '../shared/material.module';
+import { AuthenticationService } from '../auth/services/auth.service';
 
 @NgModule({
   imports: [
@@ -39,6 +40,6 @@ import { MaterialModule } from '../shared/material.module';
     MaterialModule
   ],
   declarations: [CollectionPageComponent, PlantPageComponent],
-  providers: [PlantsService, PlantExistsGuard, NotesService, ActivitiesService]
+  providers: [PlantsService, PlantExistsGuard, NotesService, ActivitiesService, AuthenticationService]
 })
-export class PlantsModule {}
+export class PlantsModule { }

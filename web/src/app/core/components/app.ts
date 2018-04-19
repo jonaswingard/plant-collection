@@ -4,8 +4,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
   selector: 'pc-app-page',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    login
-    <app-login-status></app-login-status>
+    <app-login-button></app-login-button>
     <router-outlet></router-outlet>
   `
 })

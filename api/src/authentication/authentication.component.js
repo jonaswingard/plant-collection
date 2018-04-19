@@ -15,7 +15,7 @@ router.post('/register', (req, res) => {
 
   user.setPassword(req.body.password);
 
-  user.save(function(err) {
+  user.save(function (err) {
     var token;
     token = user.generateJwt();
     res.status(200);
@@ -26,7 +26,7 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  passport.authenticate('local', function(err, user, info) {
+  passport.authenticate('local', function (err, user, info) {
     let token;
 
     // If Passport throws/catches an error

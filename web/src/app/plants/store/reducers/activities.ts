@@ -8,12 +8,13 @@ export interface State extends EntityState<Activity> {
 }
 
 export function sortByDate(a: Activity, b: Activity): number {
+  // TODO Implement this...
   return b.date > a.date ? 1 : 0;
 }
 
 export const adapter: EntityAdapter<Activity> = createEntityAdapter<Activity>({
   selectId: activity => activity._id,
-  sortComparer: sortByDate
+  sortComparer: false
 });
 
 export const initialState: State = adapter.getInitialState({

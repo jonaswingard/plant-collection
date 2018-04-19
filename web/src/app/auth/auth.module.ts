@@ -5,11 +5,12 @@ import { RegisterPageComponent } from './containers/register.component';
 import { LoginPageComponent } from './containers/login.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { LoginButtonComponent } from './components/login-button.component';
 
-export const COMPONENTS = [LoginPageComponent, RegisterPageComponent];
+export const COMPONENTS = [LoginPageComponent, RegisterPageComponent, LoginButtonComponent];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, RouterModule],
   declarations: COMPONENTS,
   exports: COMPONENTS
 })
@@ -35,4 +36,4 @@ export class AuthModule {
   ],
   providers: [AuthenticationService]
 })
-export class RootAuthModule {}
+export class RootAuthModule { }

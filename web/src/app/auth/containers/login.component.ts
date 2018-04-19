@@ -20,9 +20,6 @@ import { Router } from '@angular/router';
     <button type="submit" class="btn btn-default">Sign in!</button>
   </form>
 
-  <div>
-    IsLoggedIn: {{ auth.isLoggedIn() }}
-  </div>
   <button (click)="logout()">Log out</button>
   `
 })
@@ -32,7 +29,7 @@ export class LoginPageComponent {
     password: ''
   };
 
-  constructor(private auth: AuthenticationService, private router: Router) {}
+  constructor(private auth: AuthenticationService, private router: Router) { }
 
   login() {
     this.auth.login(this.credentials).subscribe(

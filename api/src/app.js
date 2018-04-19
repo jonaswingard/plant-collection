@@ -36,8 +36,8 @@ passport.use(
     {
       usernameField: 'email'
     },
-    function(username, password, done) {
-      User.findOne({ email: username }, function(err, user) {
+    function (username, password, done) {
+      User.findOne({ email: username }, function (err, user) {
         if (err) {
           return done(err);
         }
@@ -61,12 +61,15 @@ passport.use(
 );
 
 app.get('/', (req, res) => res.send('Plants API'));
+app.get('/foobar', function (req, res) {
+  res.send(req.payload);
+});
 app.use('/api/auth', AuthComponent);
 app.use('/api/plants', PlantComponent);
 app.use('/api/plants/:id/notes', NoteComponent);
 app.use('/api/plants/:id/activities', ActivityComponent);
 
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401);
     res.json({ message: err.name + ': ' + err.message });

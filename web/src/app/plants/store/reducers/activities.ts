@@ -9,12 +9,13 @@ export interface State extends EntityState<Activity> {
 
 export function sortByDate(a: Activity, b: Activity): number {
   // TODO Implement this...
-  return b.date > a.date ? 1 : 0;
+
+  return new Date(b.date).getTime() - new Date(a.date).getTime();
 }
 
 export const adapter: EntityAdapter<Activity> = createEntityAdapter<Activity>({
   selectId: activity => activity._id,
-  sortComparer: false
+  sortComparer: this.sortByDate
 });
 
 export const initialState: State = adapter.getInitialState({

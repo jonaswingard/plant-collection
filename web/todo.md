@@ -9,3 +9,4 @@
 * activity - välj typ
 * datepicker för activity
 * activity - redigera
+* skicka med token genom att injecta http-anrop

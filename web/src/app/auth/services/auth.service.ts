@@ -10,8 +10,13 @@ import { UserDetails, TokenResponse, TokenPayload } from '../models/user.model';
 @Injectable()
 export class AuthenticationService {
   private token: string;
+  public options = {};
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {
+    this.options = {
+      headers: { Authorization: `Bearer ${this.getToken()}` }
+    };
+  }
 
   private saveToken(token: string): void {
     localStorage.setItem('mean-token', token);
@@ -79,9 +84,9 @@ export class AuthenticationService {
     return request;
   }
 
-  public register(user: TokenPayload): Observable<any> {
-    return this.request('post', 'register', user);
-  }
+  // public register(user: TokenPayload): Observable<any> {
+  //   return this.request('post', 'register', user);
+  // }
 
   public login(user: TokenPayload): Observable<any> {
     return this.request('post', 'login', user);
@@ -90,4 +95,6 @@ export class AuthenticationService {
   public profile(): Observable<any> {
     return this.request('get', 'profile');
   }
+
+
 }

@@ -7,29 +7,28 @@ import { AuthenticationService } from '../../auth/services/auth.service';
 
 @Injectable()
 export class PlantsService {
+
+
   constructor(private http: HttpClient, private auth: AuthenticationService) { }
 
   getPlants(): Observable<Plant[]> {
-    return this.http.get<Plant[]>(`${environment.plantsUrl}`, {
-      headers: { Authorization: `Bearer ${this.auth.getToken()}` }
-
-    });
+    return this.http.get<Plant[]>(`${environment.plantsUrl}`, this.auth.options);
   }
 
   getPlant(id: string): Observable<Plant> {
-    return this.http.get<Plant>(`${environment.plantsUrl}/${id}`);
+    return this.http.get<Plant>(`${environment.plantsUrl}/${id}`, this.auth.options);
   }
 
   addPlant(plant: Plant): Observable<any> {
-    return this.http.post<any>(`${environment.plantsUrl}`, plant);
+    return this.http.post<any>(`${environment.plantsUrl}`, plant, this.auth.options);
   }
 
   updatePlant(plant: Plant): Observable<any> {
-    return this.http.put<any>(`${environment.plantsUrl}/${plant._id}`, plant);
+    return this.http.put<any>(`${environment.plantsUrl}/${plant._id}`, plant, this.auth.options);
   }
 
   deletePlant(id: string): Observable<any> {
-    return this.http.delete<any>(`${environment.plantsUrl}/${id}`);
+    return this.http.delete<any>(`${environment.plantsUrl}/${id}`, this.auth.options);
   }
 
   uploadImage(id, file): Observable<any> {
@@ -38,7 +37,8 @@ export class PlantsService {
 
     return this.http.post(
       `${environment.plantsUrl}/${id}/image/upload`,
-      formData
+      formData,
+      this.auth.options
     );
   }
 }

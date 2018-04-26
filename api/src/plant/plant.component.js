@@ -8,13 +8,8 @@ const router = express.Router();
 
 // router.get('/', (req, res) => Plant.find((err, plants) => res.send(plants)));
 
-const auth = jwt({
-  secret: process.env.JWT_SECRET,
-  userProperty: 'payload'
-});
 
-
-router.get('/', auth, function (req, res) {
+router.get('/', (req, res) => {
   return Plant.find((err, plants) => res.send(plants));
 });
 

@@ -61,13 +61,10 @@ passport.use(
 );
 
 app.get('/', (req, res) => res.send('Plants API'));
-app.get('/foobar', function (req, res) {
-  res.send(req.payload);
-});
 app.use('/api/auth', AuthComponent);
-app.use('/api/plants', PlantComponent);
-app.use('/api/plants/:id/notes', NoteComponent);
-app.use('/api/plants/:id/activities', ActivityComponent);
+app.use('/api/plants', auth, PlantComponent);
+app.use('/api/plants/:id/notes', auth, NoteComponent);
+app.use('/api/plants/:id/activities', auth, ActivityComponent);
 
 app.use(function (err, req, res, next) {
   if (err.name === 'UnauthorizedError') {

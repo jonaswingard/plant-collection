@@ -84,9 +84,9 @@ export class AuthenticationService {
     return request;
   }
 
-  // public register(user: TokenPayload): Observable<any> {
-  //   return this.request('post', 'register', user);
-  // }
+  public register(user: TokenPayload): Observable<any> {
+    return this.request('post', 'register', user);
+  }
 
   public login(user: TokenPayload): Observable<any> {
     return this.request('post', 'login', user);
